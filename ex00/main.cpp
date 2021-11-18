@@ -7,6 +7,8 @@ template< typename T > T convertString( std::string const & s )
 	std::stringstream	ss( s );
 	T	out;
 	ss >> out;
+	std::cout << std::endl;
+	std::cout << ss.fail() << std::endl;
 	return out;
 }
 
