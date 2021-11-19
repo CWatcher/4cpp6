@@ -5,6 +5,15 @@
 
 #include <iostream>
 
+bool Converter::try1Parse1Symbol()
+{	return false;
+}
+bool Converter::try2ParsePseudoLiterals()
+{	return false;
+}
+bool Converter::try3ParseNumber()
+{	return false;
+}
 Converter::Converter( std::string s ) throw ( std::invalid_argument )
 {
 	if ( s.length() == 1 )

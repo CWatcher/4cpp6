@@ -24,4 +24,8 @@ private:
 		_data;
 	enum { tNone, tChar, tInt, tFloat, tDouble }
 		_type;
+
+	bool try1Parse1Symbol();
+	bool try2ParsePseudoLiterals();
+	bool try3ParseNumber();
 };
