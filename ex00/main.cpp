@@ -1,16 +1,6 @@
+#include "Converter.hpp"
 #include <string>
 #include <iostream>
-#include <sstream>
-
-template< typename T > T convertString( std::string const & s )
-{
-	std::stringstream	ss( s );
-	T	out;
-	ss >> out;
-	std::cout << std::endl;
-	std::cout << ss.fail() << std::endl;
-	return out;
-}
 
 int	main( int argc, char* argv[] )
 {
@@ -19,10 +9,11 @@ int	main( int argc, char* argv[] )
 		          << " scalar_literal"	<< std::endl;
 		return 1;
 	}
-	std::string			s( argv[ 1 ] );
-
-	std::cout << convertString< char >( s ) << std::endl;
-	std::cout << convertString< int >( s ) << std::endl;
-	std::cout << convertString< float >( s ) << std::endl;
-	std::cout << convertString< double >( s ) << std::endl;
+	try
+	{	Converter converter( argv[ 1 ] );
+		std::cout << "double: " << ( double )converter << std::endl;
+	}
+	catch ( std::exception const & e )
+	{	std::cout << e.what() << std::endl;
+	}
 }

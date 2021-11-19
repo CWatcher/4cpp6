@@ -6,8 +6,13 @@ make > /dev/null		\
 
 echo
 
-valgrind -q ./convert 0 >> convert.log
-valgrind -q ./convert nan >> convert.log
-valgrind -q ./convert 42.0f >> convert.log
+valgrind -q ./convert .123
+valgrind -q ./convert 321.
+valgrind -q ./convert +inf
+valgrind -q ./convert nan
 
-diff subject_output.txt convert.log && echo ok!
+# valgrind -q ./convert 0 >> convert.log
+# valgrind -q ./convert nan >> convert.log
+# valgrind -q ./convert 42.0f >> convert.log
+
+# diff subject_output.txt convert.log && echo ok!

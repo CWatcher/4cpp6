@@ -1,4 +1,5 @@
-SRC			=	main.cpp
+SRC			=	Converter.cpp \
+				main.cpp
 OBJ			=	$(SRC:.cpp=.o)
 NAME		=	convert
 CXX			= 	clang++
