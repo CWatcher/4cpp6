@@ -5,7 +5,8 @@
 
 class Converter {
 public:
-	Converter( std::string const & ) throw ( std::invalid_argument );
+	Converter( std::string ) throw ( std::invalid_argument );
+		//TODO std::string const & (see "if ( s[ s.length() - 1 ] == 'f' )" )
 	Converter( Converter const & src );
 	~Converter();
 
@@ -14,5 +15,13 @@ public:
 	operator double () const throw( std::bad_cast );
 
 private:
-	double		_d;
+	union {
+		char	c;
+		int		i;
+		float	f;
+		double	d;
+	}
+		_data;
+	enum { tNone, tChar, tInt, tFloat, tDouble }
+		_type;
 };

@@ -6,10 +6,23 @@ make > /dev/null		\
 
 echo
 
-valgrind -q ./convert .123
-valgrind -q ./convert 321.
-valgrind -q ./convert +inf
-valgrind -q ./convert nan
+./convert a
+./convert abc
+./convert 123
+./convert 123f
+./convert 123.f
+./convert 12.3f
+./convert 12.3.f
+./convert .123
+./convert 1.23
+./convert 321.
+./convert .1.23
+./convert -inff
+./convert +inff
+./convert nanf
+./convert -inf
+./convert +inf
+./convert nan
 
 # valgrind -q ./convert 0 >> convert.log
 # valgrind -q ./convert nan >> convert.log

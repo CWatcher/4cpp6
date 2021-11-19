@@ -11,7 +11,8 @@ int	main( int argc, char* argv[] )
 	}
 	try
 	{	Converter converter( argv[ 1 ] );
-		std::cout << "double: " << ( double )converter << std::endl;
+		try { std::cout << "double: " << ( double )converter << std::endl; }
+		catch ( std::bad_cast ) { std::cout << "impossible" << std::endl; }
 	}
 	catch ( std::exception const & e )
 	{	std::cout << e.what() << std::endl;
