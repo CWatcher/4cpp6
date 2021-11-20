@@ -67,7 +67,8 @@ bool Converter::try3ParseNumber( std::string s )
 	{	_type = tInt;
 		ss >> _data.i;
 	}
-	if ( ss.fail() )
+	if ( ss.fail() || (    ss.peek() != std::stringstream::traits_type::eof()
+	                    && ss.peek() != '\0' ) )
 	{	_data.d = NAN;
 		_type = tNone;
 		return false;
