@@ -5,8 +5,7 @@
 
 class Converter {
 public:
-	Converter( std::string ) throw ( std::invalid_argument );
-		//TODO std::string const & (see "if ( s[ s.length() - 1 ] == 'f' )" )
+	Converter( std::string const & ) throw ( std::invalid_argument );
 	Converter( Converter const & src );
 	~Converter();
 
@@ -25,7 +24,7 @@ private:
 	enum { tNone, tChar, tInt, tFloat, tDouble }
 		_type;
 
-	bool try1Parse1Symbol();
-	bool try2ParsePseudoLiterals();
-	bool try3ParseNumber();
+	bool try1Parse1Symbol( std::string const & );
+	bool try2ParsePseudoLiterals( std::string const & );
+	bool try3ParseNumber( std::string );
 };

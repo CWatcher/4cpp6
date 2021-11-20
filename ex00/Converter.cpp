@@ -3,30 +3,25 @@
 #include <cstring>
 #include <cmath>
 
-#include <iostream>
-
-bool Converter::try1Parse1Symbol()
-{	return false;
-}
-bool Converter::try2ParsePseudoLiterals()
-{	return false;
-}
-bool Converter::try3ParseNumber()
-{	return false;
-}
-Converter::Converter( std::string s ) throw ( std::invalid_argument )
+bool Converter::try1Parse1Symbol( std::string const & s )
 {
-	if ( s.length() == 1 )
-	{	if ( isdigit( s[0] ) )
-		{	_type = tInt;
-			_data.i = s[0] - '0';
-		}
-		else if ( isprint( s[0] ))
-		{	_type = tChar;
-			_data.c = s[0];
-		}
+	if ( s.length() != 1 )
+		return false;
+
+	if ( isdigit( s[0] ) )
+	{	_type = tInt;
+		_data.i = s[0] - '0';
 	}
-	else if ( s == "-inf" )
+	else
+	{	_type = tChar;
+		_data.c = s[0];
+	}
+
+	return true;
+}
+bool Converter::try2ParsePseudoLiterals( std::string const & s )
+{
+	if ( s == "-inf" )
 	{	_type = tDouble;
 		_data.d = -INFINITY;
 	}
@@ -51,31 +46,47 @@ Converter::Converter( std::string s ) throw ( std::invalid_argument )
 		_data.f = NAN;
 	}
 	else
-	{	std::stringstream	ss( s );
-		if ( s.end()[-1] == 'f' )
-		{	s.end()[-1] = '\0';
-			ss.str(s);
-			_type = tFloat;
-			ss >> _data.f;
-		}
-		else if ( s.find( '.' ) != std::string::npos )
-		{	_type = tDouble;
-			ss >> _data.d;
-		}
-		else
-		{	_type = tInt;
-			ss >> _data.i;
-		}
-		if ( ss.fail() )
-		{	_data.d = NAN;
-			_type = tNone;
-			throw std::invalid_argument(
-				"Argument is not a char, int, float or double");
-		}
+		return false;
+
+	return true;
+}
+bool Converter::try3ParseNumber( std::string s )
+{
+	std::stringstream	ss( s );
+	if ( s.end()[-1] == 'f' )
+	{	s.end()[-1] = '\0';
+		ss.str(s);
+		_type = tFloat;
+		ss >> _data.f;
 	}
+	else if ( s.find( '.' ) != std::string::npos )
+	{	_type = tDouble;
+		ss >> _data.d;
+	}
+	else
+	{	_type = tInt;
+		ss >> _data.i;
+	}
+	if ( ss.fail() )
+	{	_data.d = NAN;
+		_type = tNone;
+		return false;
+	}
+
+	return true;
+}
+
+Converter::Converter( std::string const & s ) throw ( std::invalid_argument )
+{
+	if (    !try1Parse1Symbol( s )
+	     && !try2ParsePseudoLiterals( s )
+		 && !try3ParseNumber( s )
+	   )
+		throw std::invalid_argument(
+			"Argument is not a char, int, float or double");
 }
 Converter::Converter( const Converter & src )
-:	_data( src._data )
+:	_data( src._data ), _type( src._type )
 {}
 Converter::~Converter()
 {}
