@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <typeinfo>
 
 class	Base {
 public:
@@ -43,19 +42,19 @@ void	identify( Base& baseChild )
 		std::cout << "A";
 		return;
 	}
-	catch( std::bad_cast & ) {}
+	catch( std::exception & ) {}
 	try
 	{	( void ) dynamic_cast< B& >( baseChild );
 		std::cout << "B";
 		return;
 	}
-	catch( std::bad_cast & ) {}
+	catch( std::exception & ) {}
 	try
 	{	( void ) dynamic_cast< C& >( baseChild );
 		std::cout << "C";
 		return;
 	}
-	catch( std::bad_cast & ) {}
+	catch( std::exception & ) {}
 }
 
 int		main()
