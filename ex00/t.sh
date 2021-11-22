@@ -5,6 +5,7 @@ make > /dev/null		\
 	|| exit 1
 
 echo
+set -v
 
 ./convert a			; echo
 ./convert 123		; echo
