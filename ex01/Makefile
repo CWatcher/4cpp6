@@ -1,9 +1,8 @@
-SRC			=	Data.cpp	\
-				main.cpp
+SRC			=	main.cpp
 OBJ			=	$(SRC:.cpp=.o)
 NAME		=	aa
-CXX			= 	clang++
-CXXFLAGS	= 	-Wextra -Wall -Werror -Wpedantic -g #-fsanitize=address
+CXX			= 	c++
+CXXFLAGS	= 	-Wextra -Wall -Werror -Wpedantic -g -fsanitize=address
 
 all		: $(NAME)
 
