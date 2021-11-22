@@ -103,6 +103,7 @@ template< typename T > char	castToChar( T x ) throw( std::bad_cast, std::range_e
 {
 	if (    x < std::numeric_limits< char >::min()
 	     || x > std::numeric_limits< char >::max()
+		 || x == NAN || x != x
 	   )
 		throw std::bad_cast();
 
@@ -113,17 +114,23 @@ template< typename T > char	castToChar( T x ) throw( std::bad_cast, std::range_e
 
 	return c;
 }
-template< typename T > int	castToInt( T x ) throw( std::bad_cast, std::range_error )
+template< typename T > int	castToInt( T x ) throw( std::bad_cast )
 {
 	if (    x < std::numeric_limits< int >::min()
 	     || x > std::numeric_limits< int >::max()
 		 || x == NAN || x != x
 	   )
 		throw std::bad_cast();
-
 	return static_cast< int >( x );
 }
-
+template< typename T > float	castToFloat( T x ) throw( std::bad_cast )
+{
+	if (    x < std::numeric_limits< float >::min()
+	     || x > std::numeric_limits< float >::max()
+	   )
+		throw std::bad_cast();
+	return static_cast< float >( x );
+}
 Converter::operator char() const throw( std::bad_cast, std::range_error )
 {
 	switch ( _type )
@@ -137,10 +144,20 @@ Converter::operator char() const throw( std::bad_cast, std::range_error )
 Converter::operator int() const throw( std::bad_cast )
 {
 	switch ( _type )
-	{	case tChar	: return castToInt (_data.c  );
+	{	case tChar	: return castToInt ( _data.c );
 		case tInt	: return _data.i;
 		case tFloat	: return castToInt ( _data.f );
 		case tDouble: return castToInt ( _data.d );
+		default		: throw std::bad_cast();
+	}
+}
+Converter::operator float() const throw( std::bad_cast )
+{
+	switch ( _type )
+	{	case tChar	: return castToFloat ( _data.c );
+		case tInt	: return castToFloat ( _data.i );
+		case tFloat	: return _data.f;
+		case tDouble: return castToFloat ( _data.d );
 		default		: throw std::bad_cast();
 	}
 }
