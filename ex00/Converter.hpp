@@ -11,7 +11,10 @@ public:
 
 	Converter &	operator=( Converter const & rhs );
 
-	operator double () const throw( std::bad_cast );
+	operator char() const throw( std::bad_cast, std::range_error );
+	operator int() const throw( std::bad_cast );
+	operator float() const throw( std::bad_cast );
+	operator double() const throw( std::bad_cast );
 
 private:
 	union {

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cstring>
 #include <cmath>
+#include <limits>
 
 bool Converter::try1Parse1Symbol( std::string const & s )
 {
@@ -98,10 +99,36 @@ Converter &	Converter::operator=( Converter const & rhs )
 	return *this;
 }
 
+template< typename T > char	castToChar( T x ) throw( std::bad_cast, std::range_error )
+{
+	if (    x < std::numeric_limits< char >::min()
+	     || x > std::numeric_limits< char >::max()
+	   )
+		throw std::bad_cast();
+
+	char	c = static_cast< char >( x );
+
+	if ( !isprint( c ) )
+		throw std::range_error( "non-displayable" );
+
+	return c;
+}
+
+Converter::operator char () const throw( std::bad_cast, std::range_error )
+{
+	switch ( _type )
+	{	case tChar	: return _data.c;
+		case tInt	: return castToChar ( _data.i );
+		case tFloat	: return castToChar ( _data.f );
+		case tDouble: return castToChar ( _data.d );
+		default		: throw std::bad_cast();
+	}
+}
+
 Converter::operator double () const throw( std::bad_cast )
 {
 	switch ( _type )
-	{	case tChar	: throw std::bad_cast();
+	{	case tChar	: return static_cast< double >( _data.c );
 		case tInt	: return static_cast< double >( _data.i );
 		case tFloat	: return static_cast< double >( _data.f );
 		case tDouble: return static_cast< double >( _data.d );

@@ -6,21 +6,23 @@ make > /dev/null		\
 
 echo
 
-./convert a
+./convert a			; echo
+./convert 123		; echo
+./convert 123f		; echo
+./convert 123.f		; echo
+./convert 12.3f		; echo
+./convert .123		; echo
+./convert 1.23		; echo
+./convert 321.		; echo
+./convert -inff		; echo
+./convert +inff		; echo
+./convert nanf		; echo
+./convert -inf		; echo
+./convert +inf		; echo
+./convert nan		; echo
+
 ./convert abc
-./convert 123
-./convert 123f
-./convert 123.f
-./convert 12.3f
-./convert .123
-./convert 1.23
-./convert 321.
-./convert -inff
-./convert +inff
-./convert nanf
-./convert -inf
-./convert +inf
-./convert nan
+./convert 1a
 ./convert 12.3.f
 ./convert .1.
 ./convert .1.23

@@ -2,8 +2,8 @@ SRC			=	Converter.cpp \
 				main.cpp
 OBJ			=	$(SRC:.cpp=.o)
 NAME		=	convert
-CXX			= 	clang++
-CXXFLAGS	= 	-Wextra -Wall -Wpedantic -Werror -std=c++98 -g #-fsanitize=address
+CXX			= 	c++
+CXXFLAGS	= 	-Wextra -Wall -Wpedantic -Werror -std=c++98 -g -fsanitize=address
 
 all		: $(NAME)
 
