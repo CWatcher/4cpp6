@@ -19,6 +19,11 @@ int	main( int argc, char* argv[] )
 		{	std::cout << e.what() << std::endl; }
 
 		try
+		{	std::cout << "int: " << ( int )converter << std::endl; }
+		catch ( std::bad_cast & )
+		{	std::cout << "impossible" << std::endl; }
+
+		try
 		{	std::cout << "double: " << ( double )converter << std::endl; }
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
