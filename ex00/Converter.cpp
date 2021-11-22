@@ -110,7 +110,7 @@ template< typename T > char	castToChar( T x ) throw( std::bad_cast, std::range_e
 	char	c = static_cast< char >( x );
 
 	if ( !isprint( c ) )
-		throw std::range_error( "non-displayable" );
+		throw std::range_error( "Non displayable" );
 
 	return c;
 }
