@@ -125,7 +125,7 @@ template< typename T > int	castToInt( T x ) throw( std::bad_cast )
 }
 template< typename T > float	castToFloat( T x ) throw( std::bad_cast )
 {
-	if (    x < std::numeric_limits< float >::min()
+	if (    x < -std::numeric_limits< float >::min()
 	     || x > std::numeric_limits< float >::max()
 	   )
 		throw std::bad_cast();
