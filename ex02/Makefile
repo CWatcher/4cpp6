@@ -1,8 +1,8 @@
 SRC			=	main.cpp
 OBJ			=	$(SRC:.cpp=.o)
 NAME		=	aa
-CXX			= 	clang++
-CXXFLAGS	= 	-Wextra -Wall -Werror -Wpedantic --std=c++98 -g #-fsanitize=address
+CXX			= 	c++
+CXXFLAGS	= 	-Wextra -Wall -Werror -Wpedantic --std=c++98 -g -fsanitize=address
 
 all		: $(NAME)
 

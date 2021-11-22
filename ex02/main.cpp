@@ -66,6 +66,7 @@ int		main()
 		identify( p );
 		std::cout << ". Identified from reference: ";
 		identify( *p );
+		delete p;
 		std::cout << std::endl;
 	}
 }
