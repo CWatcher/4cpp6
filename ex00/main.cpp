@@ -14,8 +14,12 @@ int	main( int argc, char* argv[] )
 	std::cout << std::setprecision( 100 );
 	try
 	{	Converter converter( argv[ 1 ] );
+
 		try
-		{	std::cout << "char  : " << ( char )converter << std::endl; }
+		{	std::cout << "char  : ";
+			char c = ( char )converter;
+			std::cout << "'" << c << "'" << std::endl;
+		}
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
 		catch ( std::range_error const & e )
@@ -29,17 +33,17 @@ int	main( int argc, char* argv[] )
 		std::string	pointZero[] = {"", ".0"};
 
 		try
-		{	float x = ( float )converter;
-			std::cout << "float : " << x << pointZero[ round( x ) == x ] << "f"
-			          << std::endl;
+		{	std::cout << "float : ";
+			float x = ( float )converter;
+			std::cout << x << pointZero[ round( x ) == x ] << "f" << std::endl;
 		}
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
 
 		try
-		{	double x = ( double )converter;
-			std::cout << "double: " << x << pointZero[ round( x ) == x ]
-			          << std::endl;
+		{	std::cout << "double: ";
+			double x = ( double )converter;
+			std::cout << x << pointZero[ round( x ) == x ] << std::endl;
 		}
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
