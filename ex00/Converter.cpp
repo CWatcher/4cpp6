@@ -1,7 +1,6 @@
 #include "Converter.hpp"
 #include <sstream>
 #include <cstring>
-#include <cmath>
 #include <limits>
 
 bool Converter::try1Parse1Symbol( std::string const & s )
@@ -24,27 +23,27 @@ bool Converter::try2ParsePseudoLiterals( std::string const & s )
 {
 	if ( s == "-inf" )
 	{	_type = tDouble;
-		_data.d = -INFINITY;
+		_data.d = -std::numeric_limits< double >::infinity();
 	}
 	else if ( s == "+inf" )
 	{	_type = tDouble;
-		_data.d = INFINITY;
+		_data.d = std::numeric_limits< double >::infinity();
 	}
 	else if ( s == "nan" )
 	{	_type = tDouble;
-		_data.d = NAN;
+		_data.d = std::numeric_limits< double >::quiet_NaN();
 	}
 	else if ( s == "-inff" )
 	{	_type = tFloat;
-		_data.f = -INFINITY;
+		_data.f = -std::numeric_limits< float >::infinity();
 	}
 	else if ( s == "+inff" )
 	{	_type = tFloat;
-		_data.f = INFINITY;
+		_data.f = std::numeric_limits< float >::infinity();
 	}
 	else if ( s == "nanf" )
 	{	_type = tFloat;
-		_data.f = NAN;
+		_data.f = std::numeric_limits< float >::quiet_NaN();
 	}
 	else
 		return false;
@@ -70,7 +69,7 @@ bool Converter::try3ParseNumber( std::string s )
 	}
 	if ( ss.fail() || (    ss.peek() != std::stringstream::traits_type::eof()
 	                    && ss.peek() != '\0' ) )
-	{	_data.d = NAN;
+	{	_data.d = std::numeric_limits< double >::quiet_NaN();
 		_type = tNone;
 		return false;
 	}
@@ -103,7 +102,7 @@ template< typename T > char	castToChar( T x ) throw( std::bad_cast, std::range_e
 {
 	if (    x < std::numeric_limits< char >::min()
 	     || x > std::numeric_limits< char >::max()
-		 || x == NAN || x != x
+		 || x != x
 	   )
 		throw std::bad_cast();
 
@@ -118,7 +117,7 @@ template< typename T > int	castToInt( T x ) throw( std::bad_cast )
 {
 	if (    x < std::numeric_limits< int >::min()
 	     || x > std::numeric_limits< int >::max()
-		 || x == NAN || x != x
+		 || x != x
 	   )
 		throw std::bad_cast();
 	return static_cast< int >( x );
@@ -167,8 +166,7 @@ Converter::operator double() const throw( std::bad_cast )
 	{	case tChar	: return static_cast< double >( _data.c );
 		case tInt	: return static_cast< double >( _data.i );
 		case tFloat	: return static_cast< double >( _data.f );
-		case tDouble: return static_cast< double >( _data.d );
+		case tDouble: return _data.d;
 		default		: throw std::bad_cast();
 	}
-
 }

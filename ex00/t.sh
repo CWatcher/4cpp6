@@ -17,6 +17,7 @@ set -v
 ./convert -4.56		; echo
 ./convert 321.		; echo
 
+./convert nan		; echo
 ./convert nanf		; echo
 ./convert -inff		; echo
 ./convert +inff		; echo
