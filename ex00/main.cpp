@@ -35,7 +35,8 @@ int	main( int argc, char* argv[] )
 		try
 		{	std::cout << "float : ";
 			float x = ( float )converter;
-			std::cout << x << pointZero[ round( x ) == x ] << "f" << std::endl;
+			std::cout << x << pointZero[ round( x ) == x && !isinf( x ) ]
+			          << "f" << std::endl;
 		}
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
@@ -43,7 +44,8 @@ int	main( int argc, char* argv[] )
 		try
 		{	std::cout << "double: ";
 			double x = ( double )converter;
-			std::cout << x << pointZero[ round( x ) == x ] << std::endl;
+			std::cout << x << pointZero[ round( x ) == x && !isinf( x )  ]
+			          << std::endl;
 		}
 		catch ( std::bad_cast & )
 		{	std::cout << "impossible" << std::endl; }
